@@ -21,7 +21,7 @@ public class Message {
     private String author;
     
     public Message() {
-        // remember to add a no-arg constructor.
+        // no-arg constructor.
     }
     
     public Message(long id, String message, String author) {

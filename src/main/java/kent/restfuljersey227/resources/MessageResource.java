@@ -14,7 +14,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -27,7 +26,7 @@ import kent.restfuljersey227.service.MessageService;
  */
 @Path("/messages")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Produces( value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 public class MessageResource {
     
     MessageService messageService = new MessageService();
@@ -39,7 +38,7 @@ public class MessageResource {
     
     @GET
     @Path("/{messageId}")
-    public Message getMessage(@PathParam("messageId") long id) {
+    public Response getMessage(@PathParam("messageId") long id) {
         return messageService.getMessage(id);
     }
     
