@@ -8,6 +8,8 @@ package kent.restfuljersey227.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import kent.restfuljersey227.database.DatabaseClass;
 import kent.restfuljersey227.model.Message;
 
@@ -28,8 +30,19 @@ public class MessageService {
         return new ArrayList<>(messages.values());
     }
     
-    public Message getMessage(long id) {
-        return messages.get(id);
+    public Response getMessage(long id) {
+        Status status;
+        Object entity;
+        Message message = messages.get(id);
+        if (message != null) {
+            entity = messages.get(id);
+            status = Status.OK;
+        } else {
+            entity = "Can't find any data with id: " + id;
+            status = Status.NOT_FOUND;
+        }
+        
+        return Response.status(status).entity(entity).build();
     }
     
     public Message addMessage(Message message) {
@@ -48,8 +61,8 @@ public class MessageService {
         return message;
     }
     
-    public Message removeMessage(long id) {
-        return messages.remove(id);
+    public void removeMessage(long id) {
+        messages.remove(id);
     }
     
 }
